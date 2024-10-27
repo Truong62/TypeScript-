@@ -103,6 +103,22 @@ const stringStack = new Stack<string>();
 // Tạo một enum cho các trạng thái "Loading", "Success", "Error".
 // Tạo một generic để sử dụng với các kiểu dữ liệu khác nhau cho từng trạng thái này.
 
+enum Status {
+    Loading = "Loading",
+    Success = "Success",
+    Error = "Error"
+}
+
+interface State<T> {
+    status: Status;
+    data?: T;
+    error?: string;
+}
+
+const loadingState: State<null> = {
+    status: Status.Loading
+};
+
 // Bài tập 8: Generic Utility Types
 // Sử dụng các kiểu generic utility có sẵn như Partial, Readonly, Pick, Record.
 // Tạo một vài ví dụ minh họa cho từng kiểu.
