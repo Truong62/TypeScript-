@@ -119,13 +119,60 @@ const loadingState: State<null> = {
     status: Status.Loading
 };
 
-// Bài tập 8: Generic Utility Types
+//@todo Bài tập 8: Generic Utility Types
 // Sử dụng các kiểu generic utility có sẵn như Partial, Readonly, Pick, Record.
 // Tạo một vài ví dụ minh họa cho từng kiểu.
+
+interface User {
+    id: number;
+    name: string;
+    email: string;
+}
+
+const updateUser = (user: Partial<User>) => {
+    console.log("Updated user:", user);
+};
+
+interface User {
+    id: number;
+    name: string;
+    email: string;
+}
+
+const user: Readonly<User> = {
+    id: 1,
+    name: "Jane Doe",
+    email: "jane@example.com",
+};
+
+// Record<K, T> tạo ra một kiểu đối tượng trong đó các key là kiểu K, và giá trị là kiểu T
+type Role = "admin" | "user" | "guest";
+
+const userRoles: Record<Role, number> = {
+    admin: 1,
+    user: 2,
+    guest: 3,
+};
+
+// console.log(userRoles.admin);
+// console.log(userRoles["guest"]);
+
 
 // Bài tập 9: Generic với React (nếu bạn biết React)
 // Tạo một component generic trong React nhận vào một danh sách các phần tử với kiểu bất kỳ.
 // Hiển thị danh sách các phần tử trong một bảng.
+
+// import React from 'react';
+//
+// const Generic = () => {
+//     return (
+//         <div>
+//
+//             </div>
+//     );
+// };
+//
+// export default Generic;
 
 // Bài tập 10: Advanced Generic Constraints
 // Tạo một hàm generic chỉ cho phép các kiểu là mảng hoặc đối tượng.
