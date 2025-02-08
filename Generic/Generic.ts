@@ -158,22 +158,90 @@ const userRoles: Record<Role, number> = {
 // console.log(userRoles["guest"]);
 
 
-// Bài tập 9: Generic với React (nếu bạn biết React)
-// Tạo một component generic trong React nhận vào một danh sách các phần tử với kiểu bất kỳ.
-// Hiển thị danh sách các phần tử trong một bảng.
-
-// import React from 'react';
-//
-// const Generic = () => {
-//     return (
-//         <div>
-//
-//             </div>
-//     );
-// };
-//
-// export default Generic;
-
 // Bài tập 10: Advanced Generic Constraints
 // Tạo một hàm generic chỉ cho phép các kiểu là mảng hoặc đối tượng.
 // Nếu là mảng, trả về số lượng phần tử. Nếu là đối tượng, trả về số lượng thuộc tính.
+
+
+// Bài 1: Generic Function
+// Viết một hàm generic nhận vào một mảng bất kỳ và trả về phần tử đầu tiên của mảng đó.
+
+function showFirstArr<A>(arr: A[]): A {
+    return arr[0];
+}
+
+// Bài 2: Generic Interface
+// Tạo một interface generic Box<T> chứa một thuộc tính value: T.
+//
+//     Tạo một biến boxNumber kiểu Box<number> và gán giá trị.
+//     Tạo một biến boxString kiểu Box<string> và gán giá trị.
+
+interface Box<T> {
+    haha: T
+}
+
+const boxNumber: Box<number> = {haha: 123}
+const boxString: Box<string> = {haha: 'đă'}
+
+// Bài 3: Generic với Default Type
+// Viết một hàm generic wrapValue<T = string>(value: T): { wrapped: T }
+//
+// Nếu không truyền kiểu dữ liệu, mặc định T sẽ là string.
+//     Kiểm tra với các trường hợp wrapValue(123) và wrapValue("hello").
+
+function wrapValue<T = string>(value: T): { wrapped: T } {
+    return {wrapped: value};
+}
+
+// Bài 4: Generic với Ràng Buộc (Constraints)
+// Viết một hàm generic getLength<T> nhưng chỉ chấp nhận những kiểu dữ liệu có thuộc tính .length.
+//
+//     Kiểm tra với getLength("Hello"), getLength([1, 2, 3]), getLength(100) (dự đoán lỗi).
+
+function getLengthV2<T extends { length: number }>(value: T): number {
+    return value.length;
+}
+
+// Bài 5: Generic Class
+// Tạo một class generic Storage<T> với các phương thức:
+//
+//     addItem(item: T): Thêm item vào danh sách.
+// getItems(): T[]: Lấy danh sách item.
+// removeItem(item: T): Xóa item (nếu có).
+
+
+class MyStorage<T> {
+    private items: T[] = [];
+
+    addItem(item: T): void {
+        this.items.push(item);
+    }
+
+    getItems(): T[] {
+        return this.items;
+    }
+
+    removeItem(item: T): void {
+        this.items = this.items.filter(i => i !== item);
+    }
+}
+
+const arr = new MyStorage<number | string>();
+
+// Bài 6: Viết generic function để swap hai phần tử trong mảng
+// Hãy viết một generic function có thể hoán đổi vị trí hai phần tử trong một mảng bất kỳ.
+//
+//     Yêu cầu:
+//     Hàm nhận vào một mảng và hai chỉ số cần hoán đổi.
+//     Hàm trả về mảng sau khi hoán đổi.
+//     Sử dụng generic để đảm bảo làm việc với nhiều kiểu dữ liệu khác nhau.
+
+function arrSwap<T>(arr: T[], key1: number, key2: number): T[] {
+    [arr[key1], arr[key2]] = [arr[key2], arr[key1]];
+
+    return arr
+}
+
+function getLastArr<T extends {length: number}>(arr: T[]): T {
+    return arr[arr.length - 1]
+}
